@@ -1,0 +1,146 @@
+.site-header {
+  background: #182238;
+  color: #fff;
+  border-bottom: 1px solid #334155;
+}
+
+.site-nav {
+  max-width: 1280px;
+  min-height: 80px;
+  margin: 0 auto;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.site-brand {
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.site-brand span {
+  color: #67e8f9;
+}
+
+.site-menu {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-links,
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-links a,
+.nav-login {
+  color: #dbe4f0;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 9px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-links a:hover,
+.site-links a.active,
+.nav-login:hover,
+.nav-login.active {
+  color: #67e8f9;
+  border-bottom-color: #67e8f9;
+}
+
+.nav-signup {
+  padding: 10px 18px;
+  border-radius: 7px;
+  background: #67e8f9;
+  color: #102033;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-signup:hover {
+  background: #a5f3fc;
+}
+
+.theme-toggle,
+.menu-toggle {
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid #64748b;
+  border-radius: 7px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.theme-toggle {
+  font-size: 22px;
+}
+
+.menu-toggle {
+  display: none;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.site-nav a:focus-visible,
+.site-nav button:focus-visible {
+  outline: 3px solid #67e8f9;
+  outline-offset: 4px;
+}
+
+@media (max-width: 1100px) {
+  .site-nav {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .site-menu {
+    display: none;
+    flex: 0 0 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #334155;
+  }
+
+  .site-menu.is-open {
+    display: flex;
+  }
+
+  .site-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .site-links a {
+    padding: 12px 0;
+  }
+
+  .site-actions {
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+  }
+}
