@@ -1,1 +1,1 @@
-Deployment status: planned
+Deployment status: testing
