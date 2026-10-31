@@ -6,11 +6,12 @@ const cors = require("cors");
 const eventRoutes = require("./routes/events");
 const authRoutes = require("./routes/auth");
 const registrationRoutes = require("./routes/registrations");
-
+const helmet = require("helmet");
 const logger = require("./middleware/logger");
 const errors = require("./middleware/errorHandler");
 
 const app = express();
+app.use(helmet());
 app.use(cors());
 
 app.use(express.json());
