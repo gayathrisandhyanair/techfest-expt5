@@ -104,11 +104,18 @@ router.post("/login", async (req, res, next) => {
       { expiresIn: "1h" }
     );
 
-    return res.json({
-      token,
-      name: user.name,
-      role: user.role,
-    });
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
+  maxAge: 60 * 60 * 1000,
+  path: "/",
+});
+
+return res.json({
+  name: user.name,
+  role: user.role,
+});
   } catch (err) {
     next(err);
   }

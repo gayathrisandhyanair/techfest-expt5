@@ -14,7 +14,10 @@ function Events() {
   function loadEvents() {
     axios
       .get(API + "/events")
-      .then((res) => setEvents(res.data))
+      .then((res) => {
+        setEvents(res.data);
+        setError("");
+      })
       .catch(() => setError("Could not load events"));
   }
 
@@ -23,29 +26,21 @@ function Events() {
   }, []);
 
   async function registerForEvent(eventId) {
-    const token = localStorage.getItem("token");
-
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
+    setMessage("");
 
     try {
       const res = await axios.post(
         API + "/registrations",
-        { eventId: eventId },
-        config
+        { eventId },
+        { withCredentials: true }
       );
 
       setMessage(res.data.message);
       loadEvents();
     } catch (err) {
-      if (err.response) {
-        setMessage(err.response.data.message);
-      } else {
-        setMessage("Server not reachable");
-      }
+      setMessage(
+        err.response?.data?.message || "Server not reachable"
+      );
     }
   }
 
@@ -64,17 +59,19 @@ function Events() {
     <div className="page">
       <h1>Events</h1>
 
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
+      {error && <p role="alert">{error}</p>}
+      {message && <p role="status">{message}</p>}
 
       <input
-        type="text"
+        type="search"
+        aria-label="Search events"
         placeholder="Search events..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
       <select
+        aria-label="Filter by category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
