@@ -10,23 +10,24 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setMessage("");
 
     try {
-      const res = await axios.post(API + "/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        API + "/auth/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
 
+      setPassword("");
       setMessage("Welcome " + res.data.name);
     } catch (err) {
-      if (err.response) {
-        setMessage(err.response.data.message);
-      } else {
-        setMessage("Server not reachable");
-      }
+      setMessage(
+        err.response?.data?.message || "Server not reachable"
+      );
     }
   }
 
@@ -35,22 +36,29 @@ function Login() {
       <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
+        <label htmlFor="email">Email</label>
         <input
+          id="email"
+          type="email"
+          autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
-        <label>Password</label>
+        <label htmlFor="password">Password</label>
         <input
+          id="password"
           type="password"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button type="submit">Login</button>
 
-        <p>{message}</p>
+        <p role="status">{message}</p>
       </form>
     </div>
   );

@@ -8,29 +8,36 @@ function MyRegistrations() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-
     axios
-      .get(API + "/registrations/my", config)
-      .then((res) => setList(res.data))
-      .catch(() => setMessage("Please login first"));
+      .get(API + "/registrations/my", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setList(res.data);
+        setMessage(
+          res.data.length === 0
+            ? "You have not registered for any events yet."
+            : ""
+        );
+      })
+      .catch((err) => {
+        setMessage(
+          err.response?.status === 401
+            ? "Please login first"
+            : "Could not load your registrations"
+        );
+      });
   }, []);
 
   return (
     <div className="page">
       <h1>My Registrations</h1>
 
-      <p>{message}</p>
+      <p role="status">{message}</p>
 
-      {list.map((r) => (
-        <p key={r._id}>
-          {r.event.name} - Rs. {r.event.fee}
+      {list.map((registration) => (
+        <p key={registration._id}>
+          {registration.event.name} - Rs. {registration.event.fee}
         </p>
       ))}
     </div>
