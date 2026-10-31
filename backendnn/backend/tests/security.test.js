@@ -52,7 +52,7 @@ describe("Authentication security", () => {
   test("Blocks access without a login cookie", async () => {
     const response = await request(app).get("/protected");
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(401);
   });
 
   test("Rejects a tampered login cookie", async () => {
