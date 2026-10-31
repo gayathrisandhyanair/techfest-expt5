@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "http://localhost:5000/api";
+const API = "/api";
 
 function MyRegistrations() {
   const [list, setList] = useState([]);

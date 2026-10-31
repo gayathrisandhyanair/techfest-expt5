@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import EventList from "../components/EventList";
 
-const API = "http://localhost:5000/api";
+const API = "/api";
 
 function Events() {
   const [events, setEvents] = useState([]);
