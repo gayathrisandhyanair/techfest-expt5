@@ -1,0 +1,41 @@
+name: TechFest CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Install backend dependencies
+        working-directory: backendnn/backend
+        run: npm ci
+
+      - name: Run security tests
+        working-directory: backendnn/backend
+        run: npm test
+
+      - name: Audit production dependencies
+        working-directory: backendnn/backend
+        run: npm audit --omit=dev
+
+      - name: Install frontend dependencies
+        working-directory: expt_3nnn/expt_3/techfest2026-react
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: expt_3nnn/expt_3/techfest2026-react
+        run: npm run build
