@@ -1,3 +1,20 @@
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Events from "./pages/Events";
+import Registration from "./pages/Registration";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
+import { useTheme } from "./context/ThemeContext";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import MyRegistrations from "./pages/MyRegistrations";
+
+function App() {
+  const { theme } = useTheme();
+
+  return (
     <div className={theme}>
       <Navbar />
 
@@ -15,3 +32,7 @@
         </Routes>
       </main>
     </div>
+  );
+}
+
+export default App;
